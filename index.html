@@ -478,13 +478,13 @@
       <div class="icon">— Mairie —</div>
       <div class="label">Cérémonie civile</div>
       <div class="date">18 juin 2027</div>
-      <div class="location">Mairie</div>
+      <div class="location">Place du Général de Gaulle<br>97460 Saint-Paul, La Réunion</div>
     </div>
     <div class="date-card card-frame">
       <div class="icon">— Fête —</div>
       <div class="label">Fête</div>
       <div class="date">19 juin 2027</div>
-      <div class="location">Domaine du Bassin</div>
+      <div class="location">Domaine du Bassin, B18<br>52 Route N2, Terre Rouge<br>97410 Saint-Pierre, La Réunion</div>
     </div>
   </div>
 
@@ -682,7 +682,10 @@
     var iconVillage  = makeIcon('●', '#B8934E');
 
     L.marker([-21.3487, 55.4992], {icon: iconMariage})
-      .bindPopup('<strong>Domaine du Bassin</strong><br>52 Route N2, Allée Bassin 18<br>Terre Rouge · 97410 Saint-Pierre<br>Fête · 19 juin 2027');
+      .bindPopup('<strong>Domaine du Bassin, B18</strong><br>52 Route N2, Terre Rouge<br>97410 Saint-Pierre<br>Fête · 19 juin 2027');
+
+    L.marker([-21.0097, 55.2697], {icon: iconVille})
+      .bindPopup('<strong>Mairie de Saint-Paul</strong><br>Place du Général de Gaulle<br>97460 Saint-Paul<br>Cérémonie · 18 juin 2027');
 
     L.marker([-21.052, 55.225], {icon: iconPlage})
       .bindPopup('<strong>Saint-Gilles-les-Bains</strong><br>Plages, lagons, restaurants, hôtels');
