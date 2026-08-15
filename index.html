@@ -68,12 +68,22 @@
 
   body {
     font-family: 'Cormorant Garamond', serif;
+    background: #EFE6D3; /* fond de secours uni */
+    color: #3E3423;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Fond d'écran en position fixed : couvre uniquement le viewport,
+     évite l'étirement/pixellisation de background-attachment sur mobile. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
     background: linear-gradient(rgba(246,241,228,0.70), rgba(246,241,228,0.70)), url('fond.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
-    color: #3E3423;
-    overflow-x: hidden;
+    z-index: -1;
   }
 
   /* ── HERO ── */
