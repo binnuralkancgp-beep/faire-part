@@ -753,12 +753,17 @@
       reset();
       blocAccompagne.style.display = 'block';
       blocEnfantsNombre.style.display = 'block';
-    } else {
-      // p1 (défaut) : accompagné + enfants au choix
+    } else if (v === 'p1e') {
+      // +1 avec question enfants au choix
       intro.textContent = 'Vous êtes convié(e), accompagné(e) si vous le souhaitez.';
       reset();
       blocAccompagne.style.display = 'block';
       blocEnfantsChoix.style.display = 'block';
+    } else {
+      // p1 (défaut) : accompagné, sans question enfants
+      intro.textContent = 'Vous êtes convié(e), accompagné(e) si vous le souhaitez.';
+      reset();
+      blocAccompagne.style.display = 'block';
     }
   })();
 
