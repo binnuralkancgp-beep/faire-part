@@ -640,8 +640,14 @@
 <script>
 (function() {
   // ── ÉCRAN MOT DE PASSE ──
-  // Code d'accès hashé (SHA-256). Code actuel : cap2027
-  var CORRECT_HASH = '0e5ca4c4d4fd876aa2de96ba322e86eff1cc60536b469fbca6a3418fbf47edbc';
+  // Deux codes selon l'URL :
+  //   - page racine (sans ?v=)  → generique2027 (réservé à Binnur)
+  //   - versions ?v=s / p1 / p1e → cap2027 (invités)
+  var HASH_PRIVE   = 'd054ca689dc4124e7447f28b5e2d26324f030bb6666ef375c4474a3a0ca15eea'; // generique2027
+  var HASH_INVITE  = '0e5ca4c4d4fd876aa2de96ba322e86eff1cc60536b469fbca6a3418fbf47edbc'; // cap2027
+
+  var params = new URLSearchParams(window.location.search);
+  var CORRECT_HASH = params.has('v') ? HASH_INVITE : HASH_PRIVE;
 
   var overlay = document.getElementById('password-overlay');
   var input = document.getElementById('password-input');
