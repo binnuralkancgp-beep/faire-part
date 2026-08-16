@@ -650,15 +650,93 @@
 
 <script>
 (function() {
-  // ── ÉCRAN MOT DE PASSE ──
-  // Deux codes selon l'URL :
-  //   - page racine (sans ?v=)  → generique2027 (réservé à Binnur)
-  //   - versions ?v=s / p1 / p1e → cap2027 (invités)
-  var HASH_PRIVE   = 'd054ca689dc4124e7447f28b5e2d26324f030bb6666ef375c4474a3a0ca15eea'; // generique2027
-  var HASH_INVITE  = '0e5ca4c4d4fd876aa2de96ba322e86eff1cc60536b469fbca6a3418fbf47edbc'; // cap2027
+  // ── ÉCRAN MOT DE PASSE + CODES FOYERS ──
+  var HASH_PRIVE   = 'd054ca689dc4124e7447f28b5e2d26324f030bb6666ef375c4474a3a0ca15eea'; // generique2027 (Binnur)
+  var HASH_INVITE  = '0e5ca4c4d4fd876aa2de96ba322e86eff1cc60536b469fbca6a3418fbf47edbc'; // cap2027 (pages test)
 
   var params = new URLSearchParams(window.location.search);
-  var CORRECT_HASH = params.has('v') ? HASH_INVITE : HASH_PRIVE;
+  var urlV = params.get('v');   // présent uniquement sur les pages test ?v=s/p1/p1e
+
+  // Table des foyers : hash du code → { nom, version }
+var FOYERS = {
+    '5b5808fc2bdd8665d7f4c9751c903f409c1c1e320a3cfaef3016049124bf1e07': { nom: 'Maman', version: 's' },
+    '35736a2696cee1560db3a14027db4c34536c7452a6642db8121cbad5276ea398': { nom: 'Melek', version: 'p1e' },
+    '56749f9295ed88fccc5ec68cd96a7883b566b6e0e0a1a6c102dc5af9f5e7bdeb': { nom: 'Zeliha', version: 'p1e' },
+    '4e721f44da204594dfdf9aec198b75a5efb175f1bc7cc1835e8677155e25dd19': { nom: 'Ceyda', version: 'p1' },
+    '9fb33f706cf21605e293309994b44f1f3673daf77410c33424346baad30b0f5f': { nom: 'Cuneyt', version: 'p1' },
+    '64050f8fe3f9116b8d9256806de45a37535d07ccf5a09ec8ffba22dab611904c': { nom: 'Manon', version: 'p1e' },
+    'b8534a0e24a6f1904f350cce266fba145964ff833822358374a345ef8ddd6278': { nom: 'Franck', version: 'p1e' },
+    '8a1488fd85d8adbfe61d9da336b742a3921d6252f60800f0d8301fd612ab4f48': { nom: 'Jasper', version: 'p1' },
+    '806a91c7ccba1165370d53c73b97d4baeee3e772682c96ef7a344213899fedf2': { nom: 'Emile', version: 's' },
+    '43f00987a77013e06d3d41e49e3f7fdfef0f1f2368984cf23a6764260464ef47': { nom: 'Thibaut', version: 's' },
+    '5d828a1a3b6111e4148cf37d8cfcf05e90ae2f60e3f4c527b6284188dd815a65': { nom: 'Samir', version: 'p1e' },
+    'e3f251aeb8f97c0d229efcf7417cc29f1ad9db8e094473990a3c7e87c9bc18a7': { nom: 'Bénédicte', version: 'p1' },
+    '93e70d3371cc264d093928650b5645be398af927badff1111a95b27538269d1c': { nom: 'Lucie', version: 's' },
+    'acca77d84f97413f5eeefcea660e1d4d277f75ab6831d4d04e0cd3aaeeafb2c7': { nom: 'Camille', version: 's' },
+    'c9ffc9deaf6f5d3473a44df764b431433d73347128a65100805b5f8c8c0f38c8': { nom: 'Sarah Ottavi', version: 's' },
+    '04b94581ee3e14d747a66ff582c86d7ba99086bf053e85994ca619bb86feb87f': { nom: 'Alexis Demolis', version: 'p1' },
+    'a52a04af521e19fe72a0dc36af453510e368dffd56e7e3e25fda08ae0ae67ec6': { nom: 'Maryline', version: 'p1' },
+    '8de7161ea717b84d4d4b9abd54a3ce72417c250d3cae3a98274b93b1c93eda10': { nom: 'Sasha', version: 'p1e' },
+    '5377e950872ffd13bb026e1108dd9424dda21fe7169111600b1d5f8d0f9060e6': { nom: 'Marie', version: 's' },
+    '6d1006dd7dba0dcb0e2feb203dc9999fd3ebfc21456f1921c99fb3a27720c92d': { nom: 'Ahmet dayi', version: 'p1' },
+    '28278169a33ed46d21362a50469d9645b6f4d46c0960516ebb6f2c0829f7c5f6': { nom: 'Samia', version: 's' },
+    'a8fb7a9da7e51beb94b2d5269b17bc480d326726c3ae402e41ff0d6b4028ca5d': { nom: 'Lou', version: 'p1' },
+    '8024c5c68b94814661ab256ac65a29defeecbdadc3cd8fa0df63ad642dbbccc5': { nom: 'Sarah Alouarghy', version: 's' },
+    '57c4592d7cfcdad10ba3bedb4c70264657f03dca48906e79238f759cdaeaa5fd': { nom: 'Inès Alouraghy', version: 'p1e' },
+    '8e06b56ed3ae9cfabffd41190e36f7f3b70a9a9723a814e9e2972c91feba1557': { nom: 'Nezha', version: 'p1' },
+    '3de9cb0e69a513f191b18f87497a54bffd6d9cbaf5a9a895e675356131de8495': { nom: 'Betul', version: 's' },
+    '391a479d1a4076f545116eef392c6180d93a1b2f03c00cc88a4d5aa8a93bc71e': { nom: 'Bilge', version: 's' },
+    '666655eabb5f98843d64b8e2e3dbd0cdf76ea5fe8250bb0323a730ec8b4af175': { nom: 'Memo', version: 'p1e' },
+    '7638b95b5266962ec0a3fd89b36643f205719348207a929608313bb1d0b072ce': { nom: 'Berat', version: 'p1' },
+    'fcdafb6d9b45824c461c8ef83dab7a24433095ad8198278c1b175b21d250b890': { nom: 'Bulent', version: 'p1' },
+    '1632e46aae6164a5cc172a1d2a9ead3260e319550cc1a7457b51590d7698c299': { nom: 'Imen', version: 'p1' },
+    'e502c05465881dcf72bbd6a250cd4624ae9572b5db70a56de30c1f6c9a7999fc': { nom: 'Anne-cha', version: 's' },
+    '57de8a0a12b4e381e889e3518679205b25e7f77240818a3b7e4eaa513536ed05': { nom: 'Grégory', version: 'p1' },
+    '080b0c5a3906aec5654bf9c27cb967b0714fbcca79efbe1674bea81f00169c83': { nom: 'Jéromine', version: 'p1e' },
+    '89c9ec42c1eea79b553cb6ae7b8320286088e16bd90b3cf49c9fe85115b2ca05': { nom: 'Jocleyne', version: 's' },
+    '301899e35fe8a6540595916eb8351e3969d8d93042da092da2e18ad93913d743': { nom: 'Alain', version: 's' },
+    '85061176c6c57982f8f68b130af57962c3f7ae16db12fc893f58ec3a3688a90d': { nom: 'Flo', version: 'p1e' },
+    '9252a7047ff92e6473ccd6b9bdebccd3e954133d9d2a24d11ffade127fc14341': { nom: 'Tristan', version: 's' },
+    '22e5e5a41ce131621557c8bce6626dd0d98bfa326a568261a330c98652de4617': { nom: 'Lise', version: 'p1e' },
+    'a4b9afb3774eb1a56e0d225ceb9702a3941b522c8815eb5339edb9c7d858d837': { nom: 'Marion', version: 'p1e' },
+    'b82e84671171940fee4256c5ace3fe5902e29be3a59745fc137243983561ffc3': { nom: 'Shahine', version: 'p1' },
+    'e14f9721d3d81cb715c80e03bd8fe7fce9d9eb2a3b6c4999962e22540c74b268': { nom: 'Bastien', version: 's' },
+    '3b169b7be82c2f52385440974d421eeb66a1c8b70c9dc6d2ac0a0f87ad0e28e6': { nom: 'Nicolas', version: 'p1' },
+    '8376a4aae4d01772cc02d671d20e848d9f2a66d48d588b70f6b7936e7ea0e980': { nom: 'Fahmi', version: 'p1' },
+    'cd75f49d69020fe49fbafd6eabc8c60013e9248cb53069ab5e7a5067ebb14b76': { nom: 'Faez', version: 's' },
+    '81456931e3d821ed66b4980aa6319547a340333d4ecddb3c15ca22cef415945f': { nom: 'Mouzdiar', version: 's' },
+    '20ccd9d35e4b27e5f754936aa8355cf7b8848269a0a09ee210d48dd62f58ae37': { nom: 'Isnar', version: 's' },
+    'b3ac63e191b423369f773bafa0f6a8414b865860fe6cc17f7a6bc8c13663f2d5': { nom: 'Maxence', version: 'p1' },
+    '5641a37ee277b69be6f2ae879115a9e358c07efd8e0ed9baa07c730ac2c5e07e': { nom: 'Morgan', version: 'p1' },
+    'a8bcdb5341bb61f9e909c000604777dafd75b2b9f81ed6488938272eee20899b': { nom: 'Léa', version: 'p1' },
+    'd6b4246005f45ccb29f9d77767b86ea54078fe0443f7e4c6057294cf755d6231': { nom: 'Kevin', version: 'p1' },
+    'b9876b0242cef8778a051971bc8b8a51f09bc198225cebf72e992c5038761d9e': { nom: 'Mathilde', version: 'p1' },
+    '29201405d7df7b5379fc5000ff5ba59357579dbf3db93cb4079f3c0572f853c2': { nom: 'Reza', version: 's' },
+    'aa6139e80fa196a99db9fe2fa7e5532656ebc6e1cb92891159e88a8217c5ea92': { nom: 'Mehdi', version: 'p1e' },
+    '7a4187535b74dd9772f32dcea5ab81b3d52284a1ff7a175c6cdd45b15ffc39af': { nom: 'Dayyaan', version: 's' },
+    'aca107e6d9e10b599a46a146116358aaff0a3cfc3fd76f6c825afb6e99b826c6': { nom: 'Djimillei', version: 's' },
+    'ebc484eb6d668d363b0081747fce305e8b300f4824d5a64ebf13f272806b60c6': { nom: 'Karine', version: 'p1' },
+    'b20e5cad921007dbeffd6979bcdd5b95b3f6d1599c131a8c595a6c19b6f04a47': { nom: 'Thomas', version: 's' },
+    '53c62a5cea8521e151450817a17701a27bd3d196b176d03dbaec9296ec5e06a9': { nom: 'Virgile', version: 'p1' },
+    '314e4fa645887ec66ad3f6a5da635c82f38d4810c3fb7af3d4f2b376da612bc7': { nom: 'Volay', version: 's' },
+    '15655256b3fc237d18f6b4e32c1053fba51f9e23a3ed7e2f97aac11a026006ea': { nom: 'Chrisna', version: 'p1' },
+    'c89d83c8db7b1e69239e9b589a4b124c395ab98242dae2ab9631fb73743bbab0': { nom: 'Valentin', version: 's' },
+    'e0b85bbde75047c7f6d73df54fa4ba9d721db739017b75759f6879d9b2459e63': { nom: 'Maelle', version: 's' },
+    '96fc14163e1f785ef5627b8fb3084415695b4d93321a952abfbe0593cbf64ff6': { nom: 'Romane', version: 's' },
+    'b460bf4ff6637c23d4c79434260ace29ddb1f2d824e9af8e98a10ae2c98e2c29': { nom: 'Alexis', version: 'p1' },
+    '7711e9c0816779c1e71b9b37156dd7e6b0f09d2b930de982a6fb63621fe27f2b': { nom: 'Kevin', version: 'p1' },
+    '93da8bbdc1a5c2a52c1a0e451dcffc631284ad4cd834aeae87d5091a154e7655': { nom: 'Aubane', version: 'p1' },
+    '537309d7a3d47ab5b44c72e67d3e3b3281265f548e92d15daa5914274d5f516e': { nom: 'Michel', version: 'p1' },
+    '3dd0160af16137f63ef72b6398cb447c6a82ef7c91b0da66624941328b97c48d': { nom: 'Maude', version: 's' },
+    '98625261f5dcaeef0b851f774d17a58c1a3f693a73cbbde36293c4740c23a0e5': { nom: 'Loriane', version: 's' },
+    'c59655a94116706aeef50a67c61e7f7147614b07056daccf18999a6338208402': { nom: 'Manue', version: 's' },
+    'ac11873f47dc84b4a97b0b532e2e71c932fe0dce919ab60936d6866f260ef727': { nom: 'Thierry', version: 's' },
+  };
+
+  // État courant (rempli au déverrouillage)
+  var currentFoyer   = '';
+  var currentVersion = urlV || 'p1';
+  var currentCode    = '';
 
   var overlay = document.getElementById('password-overlay');
   var input = document.getElementById('password-input');
@@ -673,18 +751,45 @@
   function unlock() {
     overlay.style.display = 'none';
     document.body.style.overflow = 'auto';
+    configurerVersion(currentVersion);
+  }
+
+  function afficheErreur() {
+    error.style.display = 'block';
+    input.value = '';
+    input.focus();
   }
 
   async function check() {
     var val = input.value.trim();
     if (!val) return;
     var hash = await sha256(val);
-    if (hash === CORRECT_HASH) {
-      unlock();
+
+    if (urlV) {
+      // Page test : seul cap2027 déverrouille
+      if (hash === HASH_INVITE) {
+        currentVersion = urlV;
+        currentFoyer = '';
+        currentCode = val;
+        unlock();
+      } else {
+        afficheErreur();
+      }
     } else {
-      error.style.display = 'block';
-      input.value = '';
-      input.focus();
+      // Page racine : generique2027 (Binnur) OU un code foyer
+      if (hash === HASH_PRIVE) {
+        currentVersion = 'p1';
+        currentFoyer = '';
+        currentCode = val;
+        unlock();
+      } else if (FOYERS[hash]) {
+        currentVersion = FOYERS[hash].version;
+        currentFoyer = FOYERS[hash].nom;
+        currentCode = val;
+        unlock();
+      } else {
+        afficheErreur();
+      }
     }
   }
 
@@ -832,11 +937,8 @@
       .bindPopup('<strong>Hell-Bourg</strong><br>Plus beau village de France, architecture créole');
   }
 
-  // RSVP — version selon le paramètre d'URL ?v=s | ?v=p1 | ?v=f
-  (function() {
-    var params = new URLSearchParams(window.location.search);
-    var v = params.get('v') || 'p1';
-
+  // RSVP — configuration du formulaire selon la version (appelé après déverrouillage)
+  function configurerVersion(v) {
     var intro = document.getElementById('rsvp-intro');
     var blocAccompagne = document.getElementById('bloc-accompagne');
     var blocEnfantsChoix = document.getElementById('bloc-enfants-choix');
@@ -862,7 +964,13 @@
       reset();
       blocAccompagne.style.display = 'block';
     }
-  })();
+
+    // Pré-remplir le nom si le foyer est identifié
+    var nameField = document.getElementById('name');
+    if (currentFoyer && nameField) {
+      nameField.value = currentFoyer;
+    }
+  }
 
   var form = document.getElementById('rsvp-form');
   if (form) {
@@ -885,14 +993,41 @@
       var btn = this.querySelector('button');
       btn.textContent = 'Envoi en cours...';
       btn.disabled = true;
+
+      // Récupère les champs du formulaire
+      var fd = new FormData(form);
+      var ceremonies = fd.getAll('ceremonie');  // cases cochées
+      var payload = {
+        nom: fd.get('name') || currentFoyer || '',
+        foyer: currentFoyer,
+        version: currentVersion,
+        codeFoyer: currentCode,
+        presence: fd.get('presence'),
+        accompagne: fd.get('accompagne'),
+        conjoint: fd.get('conjoint'),
+        enfants: fd.get('enfants'),
+        agesEnfants: fd.get('ages-enfants-choix'),
+        prenomsEnfants: fd.get('noms-enfants'),
+        ceremonies: ceremonies
+      };
+
       try {
-        // TODO : API Notion à connecter
-        localStorage.setItem('rsvp_done', '1');
-        fermerRSVP();
+        var resp = await fetch('/api/rsvp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        var data = await resp.json();
+        if (data && data.ok) {
+          localStorage.setItem('rsvp_done', '1');
+          fermerRSVP();
+        } else {
+          throw new Error(data && data.error ? data.error : 'Erreur serveur');
+        }
       } catch (err) {
         btn.textContent = 'Envoyer ma réponse';
         btn.disabled = false;
-        alert('Oups ! Une erreur est survenue.');
+        alert('Oups ! Une erreur est survenue : ' + err.message);
       }
     });
   }
