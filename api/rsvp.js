@@ -1,8 +1,10 @@
 // api/rsvp.js — fonction serverless Vercel
 // Reçoit les réponses RSVP du faire-part et les écrit dans Notion.
+// Anti-doublon : refuse un second envoi pour le même code foyer.
 // Token Notion fourni via variable d'environnement NOTION_API_KEY sur Vercel.
 
 const NOTION_DATABASE_ID = 'eca75fdc-89fa-40b7-a60a-1237c207c915';
+const NOTION_DATA_SOURCE_ID = '7c5fb4e1-927f-484a-90b4-3e47e89b3123';
 
 function prop(value) {
   return { rich_text: [{ text: { content: String(value ?? '') } }] };
@@ -15,6 +17,27 @@ function multiSelect(names) {
 }
 function title(value) {
   return { title: [{ text: { content: String(value ?? 'Invité') } }] };
+}
+
+async function alreadyReplied(token, codeFoyer) {
+  if (!codeFoyer) return false;
+  const r = await fetch(`https://api.notion.com/v1/data_sources/${NOTION_DATA_SOURCE_ID}/query`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Notion-Version': '2025-09-03',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      filter: {
+        property: 'Code foyer',
+        rich_text: { equals: codeFoyer },
+      },
+    }),
+  });
+  if (!r.ok) return false; // en cas de doute, on laisse passer (mieux vaut un doublon qu'une perte)
+  const data = await r.json();
+  return (data.results || data.data || []).length > 0;
 }
 
 export default async function handler(req, res) {
@@ -37,7 +60,12 @@ export default async function handler(req, res) {
 
   const b = req.body || {};
   const name = b.nom || b.foyer || 'Invité';
-  const foyer = b.foyer || '';
+
+  // Anti-doublon : si ce code foyer a déjà répondu, on refuse
+  const deja = await alreadyReplied(token, b.codeFoyer);
+  if (deja) {
+    return res.status(200).json({ ok: true, dejaRepondu: true });
+  }
 
   const properties = {
     Name: title(name),
