@@ -752,6 +752,10 @@ var FOYERS = {
     overlay.style.display = 'none';
     document.body.style.overflow = 'auto';
     configurerVersion(currentVersion);
+    // Si un vrai foyer est identifié, on vérifie tout de suite s'il a déjà répondu
+    if (currentFoyer) {
+      verifierDejaRepondu();
+    }
   }
 
   function afficheErreur() {
@@ -973,25 +977,41 @@ var FOYERS = {
   }
 
   var form = document.getElementById('rsvp-form');
-  if (form) {
-    // Fonction : masque le formulaire et affiche le message de remerciement
-    function fermerRSVP(deja) {
-      document.getElementById('rsvp-title').style.display = 'none';
-      document.querySelector('.rsvp-section .subtitle').style.display = 'none';
-      document.getElementById('rsvp-intro').style.display = 'none';
-      form.style.display = 'none';
-      var t = document.getElementById('rsvp-merci-texte');
-      if (t) {
-        t.textContent = deja
-          ? 'Votre réponse a déjà été enregistrée. À très vite.'
-          : 'Votre réponse a bien été enregistrée. À très vite.';
-      }
-      document.getElementById('rsvp-merci').style.display = 'block';
-    }
 
+  // Masque le formulaire et affiche le message de remerciement (deja = déjà répondu)
+  function masquerFormulaire(deja) {
+    document.getElementById('rsvp-title').style.display = 'none';
+    document.querySelector('.rsvp-section .subtitle').style.display = 'none';
+    document.getElementById('rsvp-intro').style.display = 'none';
+    form.style.display = 'none';
+    var t = document.getElementById('rsvp-merci-texte');
+    if (t) {
+      t.textContent = deja
+        ? 'Votre réponse a déjà été enregistrée. À très vite.'
+        : 'Votre réponse a bien été enregistrée. À très vite.';
+    }
+    document.getElementById('rsvp-merci').style.display = 'block';
+  }
+
+  // Vérifie côté serveur si le foyer a déjà répondu (change d'appareil inclus)
+  async function verifierDejaRepondu() {
+    if (!currentCode) return;
+    try {
+      var resp = await fetch('/api/rsvp?code=' + encodeURIComponent(currentCode));
+      var data = await resp.json();
+      if (data && data.ok && data.dejaRepondu) {
+        localStorage.setItem('rsvp_done', '1');
+        masquerFormulaire(true);
+      }
+    } catch (e) {
+      // silencieux : en cas d'échec, on laisse le formulaire visible
+    }
+  }
+
+  if (form) {
     // Si la personne a déjà répondu (même navigateur), on masque d'emblée
     if (localStorage.getItem('rsvp_done') === '1') {
-      fermerRSVP(false);
+      masquerFormulaire(false);
     }
 
     form.addEventListener('submit', async function(e) {
@@ -1026,7 +1046,7 @@ var FOYERS = {
         var data = await resp.json();
         if (data && data.ok) {
           localStorage.setItem('rsvp_done', '1');
-          fermerRSVP(!!data.dejaRepondu);
+          masquerFormulaire(!!data.dejaRepondu);
         } else {
           throw new Error(data && data.error ? data.error : 'Erreur serveur');
         }

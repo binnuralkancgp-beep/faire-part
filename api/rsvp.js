@@ -43,19 +43,27 @@ async function alreadyReplied(token, codeFoyer) {
 export default async function handler(req, res) {
   // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
-  if (req.method !== 'POST') {
-    return res.status(405).json({ ok: false, error: 'Méthode non autorisée' });
-  }
 
   const token = process.env.NOTION_API_KEY;
   if (!token) {
     return res.status(500).json({ ok: false, error: 'NOTION_API_KEY manquant côté serveur' });
+  }
+
+  // GET /api/rsvp?code=xxx → vérifie si ce code foyer a déjà répondu
+  if (req.method === 'GET') {
+    const code = (req.query && req.query.code) || '';
+    const deja = await alreadyReplied(token, code);
+    return res.status(200).json({ ok: true, dejaRepondu: deja });
+  }
+
+  if (req.method !== 'POST') {
+    return res.status(405).json({ ok: false, error: 'Méthode non autorisée' });
   }
 
   const b = req.body || {};
