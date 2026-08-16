@@ -288,8 +288,17 @@
   .rsvp-section .subtitle {
     color: #7A6E5A;
     font-style: italic;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     font-size: 1.1rem;
+  }
+  .rsvp-intro {
+    color: #5A4E3A;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+  }
+  .rsvp-bloc {
+    margin-bottom: 0.5rem;
   }
 
   .rsvp-form {
@@ -501,6 +510,7 @@
   <div class="lemon-divider"></div>
   <h2>Répondez-nous</h2>
   <p class="subtitle">Merci de confirmer votre présence avant le <strong style="text-decoration:underline;text-transform:uppercase;font-style:normal;font-variant-numeric:lining-nums;">20 octobre 2026</strong></p>
+  <p id="rsvp-intro" class="rsvp-intro"></p>
 
   <form class="rsvp-form card-frame" id="rsvp-form">
     <label for="name">Votre nom</label>
@@ -512,14 +522,29 @@
       <label><input type="radio" name="presence" value="Non"> Non, désolé(e)</label>
     </div>
 
-    <label>Accompagné(e) ?</label>
-    <div class="radio-group">
-      <label><input type="radio" name="accompagne" value="Seul(e)"> Seul(e)</label>
-      <label><input type="radio" name="accompagne" value="En couple"> En couple</label>
+    <div id="bloc-accompagne" class="rsvp-bloc">
+      <label>Accompagné(e) ?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="accompagne" value="Seul(e)"> Seul(e)</label>
+        <label><input type="radio" name="accompagne" value="En couple"> En couple</label>
+      </div>
+
+      <label for="conjoint">Nom du conjoint / accompagnant</label>
+      <input type="text" id="conjoint" name="conjoint" placeholder="Laissez vide si seul(e)">
     </div>
 
-    <label for="conjoint">Nom du conjoint / accompagnant</label>
-    <input type="text" id="conjoint" name="conjoint" placeholder="Laissez vide si seul(e)">
+    <div id="bloc-enfants-choix" class="rsvp-bloc">
+      <label>Vos enfants sont-ils présents ?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="enfants" value="Oui"> Oui, ils viennent</label>
+        <label><input type="radio" name="enfants" value="Non"> Non, ils ne viennent pas</label>
+      </div>
+    </div>
+
+    <div id="bloc-enfants-nombre" class="rsvp-bloc">
+      <label for="enfants-nombre">Nombre d'enfants qui seront présents</label>
+      <input type="number" id="enfants-nombre" name="enfants-nombre" min="0" placeholder="0">
+    </div>
 
     <label for="allergies">Allergies ou restrictions alimentaires</label>
     <textarea id="allergies" name="allergies" placeholder="Ex : végétarien, allergie aux fruits à coque, sans gluten..."></textarea>
@@ -531,7 +556,7 @@
 <!-- ═══════ INFOS PRATIQUES ═══════ -->
 <section class="section" style="padding-top:0;padding-bottom:0;">
   <div class="lemon-divider"></div>
-  <h2 style="text-align:center;font-family:'Dancing Script',cursive;font-size:2.5rem;color:#3E3423;margin-bottom:2rem;">Pour mieux vous projeter ?</h2>
+  <h2 style="text-align:center;font-family:'Dancing Script',cursive;font-size:2.5rem;color:#3E3423;margin-bottom:2rem;">Vous ne connaissez pas encore l'île ?</h2>
 
   <div class="dates-grid" style="grid-template-columns:1fr;max-width:560px;margin:2rem auto;">
     <div class="date-card card-frame">
@@ -699,7 +724,40 @@
       .bindPopup('<strong>Hell-Bourg</strong><br>Plus beau village de France, architecture créole');
   }
 
-  // RSVP
+  // RSVP — version selon le paramètre d'URL ?v=solo | ?v=plus1 | ?v=famille
+  (function() {
+    var params = new URLSearchParams(window.location.search);
+    var v = params.get('v') || 'plus1';
+
+    var intro = document.getElementById('rsvp-intro');
+    var blocAccompagne = document.getElementById('bloc-accompagne');
+    var blocEnfantsChoix = document.getElementById('bloc-enfants-choix');
+    var blocEnfantsNombre = document.getElementById('bloc-enfants-nombre');
+
+    // Par défaut : tout masqué, on affiche selon la version
+    function reset() {
+      blocAccompagne.style.display = 'none';
+      blocEnfantsChoix.style.display = 'none';
+      blocEnfantsNombre.style.display = 'none';
+    }
+
+    if (v === 'solo') {
+      intro.textContent = 'Vous êtes convié(e) à notre mariage.';
+      reset();
+    } else if (v === 'famille') {
+      intro.textContent = 'Nous serons ravis de vous accueillir en famille.';
+      reset();
+      blocAccompagne.style.display = 'block';
+      blocEnfantsNombre.style.display = 'block';
+    } else {
+      // plus1 (défaut) : accompagné + enfants au choix
+      intro.textContent = 'Vous êtes convié(e), accompagné(e) si vous le souhaitez. Vos enfants sont également les bienvenus.';
+      reset();
+      blocAccompagne.style.display = 'block';
+      blocEnfantsChoix.style.display = 'block';
+    }
+  })();
+
   var form = document.getElementById('rsvp-form');
   if (form) {
     form.addEventListener('submit', async function(e) {
