@@ -91,11 +91,20 @@
 
   .hero h1 {
     font-family: 'Parisienne', cursive;
-    font-size: clamp(3rem, 8vw, 6rem);
+    font-size: clamp(2.4rem, 7vw, 4.5rem);
     font-weight: 400;
     color: #7A8B66;
     line-height: 1.15;
     margin-bottom: 0.3rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.8rem;
+    white-space: nowrap;
+  }
+  .hero h1 .amp {
+    font-size: 0.7em;
+    color: var(--terracotta);
   }
   .hero h1 span {
     display: block;
@@ -411,7 +420,9 @@
   <div class="ornament"></div>
   <div class="card-frame" style="background:rgba(246,241,228,0.82);backdrop-filter:blur(6px);border-radius:20px;padding:2rem 2.5rem;max-width:560px;box-shadow:0 4px 20px rgba(0,0,0,0.06);margin-top:12px;">
   <h1>
-    Binnur &amp; Jordan
+    <span>Binnur</span>
+    <span class="amp">&amp;</span>
+    <span>Jordan</span>
   </h1>
   <p style="font-size:1.15rem;color:#5A4E3A;margin-top:0.8rem;line-height:1.7;font-style:italic;">
     ont la joie<br>
