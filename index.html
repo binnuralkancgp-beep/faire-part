@@ -611,7 +611,7 @@
 
   <div id="rsvp-merci" style="display:none;">
     <h2 style="font-family:'Dancing Script',cursive;font-size:2.5rem;color:#7A8B66;margin-bottom:0.8rem;">Merci !</h2>
-    <p id="rsvp-merci-texte" style="color:#7A6E5A;font-style:italic;font-size:1.1rem;">Votre réponse a bien été enregistrée. À très vite.</p>
+    <p id="rsvp-merci-texte" style="color:#7A6E5A;font-style:italic;font-size:1.1rem;">Merci d'avoir pris le temps de répondre. ☀️</p>
   </div>
 </section>
 
@@ -986,9 +986,7 @@ var FOYERS = {
     form.style.display = 'none';
     var t = document.getElementById('rsvp-merci-texte');
     if (t) {
-      t.textContent = deja
-        ? 'Votre réponse a déjà été enregistrée. À très vite.'
-        : 'Votre réponse a bien été enregistrée. À très vite.';
+      t.textContent = 'Merci d\'avoir pris le temps de répondre. ☀️';
     }
     document.getElementById('rsvp-merci').style.display = 'block';
   }
