@@ -563,7 +563,7 @@
 <!-- ═══════ RSVP ═══════ -->
 <section class="section rsvp-section">
   <div class="lemon-divider"></div>
-  <h2>Répondez-nous</h2>
+  <h2 id="rsvp-title">Répondez-nous</h2>
   <p class="subtitle">Merci de confirmer votre présence avant le <strong style="text-decoration:underline;text-transform:uppercase;font-style:normal;font-variant-numeric:lining-nums;">20 octobre 2026</strong></p>
   <p id="rsvp-intro" class="rsvp-intro"></p>
 
@@ -602,6 +602,11 @@
 
     <button type="submit">Envoyer ma réponse</button>
   </form>
+
+  <div id="rsvp-merci" style="display:none;">
+    <h2 style="font-family:'Dancing Script',cursive;font-size:2.5rem;color:#7A8B66;margin-bottom:0.8rem;">Merci !</h2>
+    <p style="color:#7A6E5A;font-style:italic;font-size:1.1rem;">Votre réponse a bien été enregistrée. À très vite.</p>
+  </div>
 </section>
 
 <!-- ═══════ INFOS PRATIQUES ═══════ -->
@@ -855,18 +860,31 @@
 
   var form = document.getElementById('rsvp-form');
   if (form) {
+    // Fonction : masque le formulaire et affiche le message de remerciement
+    function fermerRSVP() {
+      document.getElementById('rsvp-title').style.display = 'none';
+      document.querySelector('.rsvp-section .subtitle').style.display = 'none';
+      document.getElementById('rsvp-intro').style.display = 'none';
+      form.style.display = 'none';
+      document.getElementById('rsvp-merci').style.display = 'block';
+    }
+
+    // Si la personne a déjà répondu (même navigateur), on masque d'emblée
+    if (localStorage.getItem('rsvp_done') === '1') {
+      fermerRSVP();
+    }
+
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       var btn = this.querySelector('button');
-      var original = btn.textContent;
       btn.textContent = 'Envoi en cours...';
       btn.disabled = true;
       try {
         // TODO : API Notion à connecter
-        btn.textContent = '✅ Réponse envoyée — Merci !';
-        btn.style.background = 'var(--terracotta)';
+        localStorage.setItem('rsvp_done', '1');
+        fermerRSVP();
       } catch (err) {
-        btn.textContent = original;
+        btn.textContent = 'Envoyer ma réponse';
         btn.disabled = false;
         alert('Oups ! Une erreur est survenue.');
       }
