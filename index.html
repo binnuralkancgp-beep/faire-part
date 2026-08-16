@@ -755,13 +755,13 @@
       blocEnfantsNombre.style.display = 'block';
     } else if (v === 'p1e') {
       // +1 avec question enfants au choix
-      intro.textContent = 'Vous êtes convié(e), accompagné(e) si vous le souhaitez.';
+      intro.textContent = 'Vous êtes convié(e) à notre mariage.';
       reset();
       blocAccompagne.style.display = 'block';
       blocEnfantsChoix.style.display = 'block';
     } else {
-      // p1 (défaut) : accompagné, sans question enfants
-      intro.textContent = 'Vous êtes convié(e), accompagné(e) si vous le souhaitez.';
+      // p1 (défaut) : accompagné, sans enfants — on demande de ne pas venir avec les enfants
+      intro.textContent = 'Vous êtes convié(e) à notre mariage. Merci de venir sans vos enfants.';
       reset();
       blocAccompagne.style.display = 'block';
     }
