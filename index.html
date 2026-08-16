@@ -728,10 +728,10 @@
       .bindPopup('<strong>Hell-Bourg</strong><br>Plus beau village de France, architecture créole');
   }
 
-  // RSVP — version selon le paramètre d'URL ?v=solo | ?v=plus1 | ?v=famille
+  // RSVP — version selon le paramètre d'URL ?v=s | ?v=p1 | ?v=f
   (function() {
     var params = new URLSearchParams(window.location.search);
-    var v = params.get('v') || 'plus1';
+    var v = params.get('v') || 'p1';
 
     var intro = document.getElementById('rsvp-intro');
     var blocAccompagne = document.getElementById('bloc-accompagne');
@@ -745,16 +745,16 @@
       blocEnfantsNombre.style.display = 'none';
     }
 
-    if (v === 'solo') {
+    if (v === 's') {
       intro.textContent = 'Vous êtes convié(e) à notre mariage.';
       reset();
-    } else if (v === 'famille') {
+    } else if (v === 'f') {
       intro.textContent = 'Nous serons ravis de vous accueillir en famille.';
       reset();
       blocAccompagne.style.display = 'block';
       blocEnfantsNombre.style.display = 'block';
     } else {
-      // plus1 (défaut) : accompagné + enfants au choix
+      // p1 (défaut) : accompagné + enfants au choix
       intro.textContent = 'Vous êtes convié(e), accompagné(e) si vous le souhaitez. Vos enfants sont également les bienvenus.';
       reset();
       blocAccompagne.style.display = 'block';
