@@ -543,13 +543,6 @@
       <input type="text" id="ages-enfants-choix" name="ages-enfants-choix" placeholder="Ex : 4, 7 et 10 ans">
     </div>
 
-    <div id="bloc-enfants-nombre" class="rsvp-bloc">
-      <label for="enfants-nombre">Nombre d'enfants qui seront présents</label>
-      <input type="number" id="enfants-nombre" name="enfants-nombre" min="0" placeholder="0">
-      <label for="ages-enfants-nombre">Âges des enfants</label>
-      <input type="text" id="ages-enfants-nombre" name="ages-enfants-nombre" placeholder="Ex : 4, 7 et 10 ans">
-    </div>
-
     <label for="allergies">Allergies ou restrictions alimentaires</label>
     <textarea id="allergies" name="allergies" placeholder="Ex : végétarien, allergie aux fruits à coque, sans gluten..."></textarea>
 
@@ -736,23 +729,16 @@
     var intro = document.getElementById('rsvp-intro');
     var blocAccompagne = document.getElementById('bloc-accompagne');
     var blocEnfantsChoix = document.getElementById('bloc-enfants-choix');
-    var blocEnfantsNombre = document.getElementById('bloc-enfants-nombre');
 
     // Par défaut : tout masqué, on affiche selon la version
     function reset() {
       blocAccompagne.style.display = 'none';
       blocEnfantsChoix.style.display = 'none';
-      blocEnfantsNombre.style.display = 'none';
     }
 
     if (v === 's') {
       intro.textContent = 'Vous êtes convié(e) à notre mariage.';
       reset();
-    } else if (v === 'f') {
-      intro.textContent = 'Nous serons ravis de vous accueillir en famille.';
-      reset();
-      blocAccompagne.style.display = 'block';
-      blocEnfantsNombre.style.display = 'block';
     } else if (v === 'p1e') {
       // +1 avec question enfants au choix
       intro.textContent = 'Vous êtes convié(e) à notre mariage.';
