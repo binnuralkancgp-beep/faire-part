@@ -608,6 +608,7 @@
     var iconVillage  = makeIcon('●', '#B8934E');
     var iconCascade  = makeIcon('💧', '#4A7B8C');
     var iconCap      = makeIcon('⛰️', '#B8934E');
+    var iconBaignade = makeIcon('🏊', '#2E86AB');
 
     L.marker([-21.3487, 55.4992], {icon: iconMariage})
       .addTo(map)
@@ -617,18 +618,28 @@
       .addTo(map)
       .bindPopup('<strong>Mairie de Saint-Paul</strong><br>Place du Général de Gaulle<br>97460 Saint-Paul<br>Cérémonie · 18 juin 2027');
 
-    L.marker([-21.052, 55.225], {icon: iconPlage})
+    L.marker([-21.052, 55.225], {icon: iconBaignade})
       .addTo(map)
-      .bindPopup('<strong>Saint-Gilles-les-Bains</strong><br>Plages, lagons, restaurants, hôtels');
-    L.marker([-21.088, 55.239], {icon: iconPlage})
+      .bindPopup('<strong>Saint-Gilles-les-Bains</strong><br>Plage du lagon — baignade surveillée');
+    L.marker([-21.088, 55.239], {icon: iconBaignade})
       .addTo(map)
-      .bindPopup('<strong>Boucan Canot</strong><br>Plage emblématique, surf, bars de plage');
+      .bindPopup('<strong>Boucan Canot</strong><br>Plage surveillée, surf, bars de plage');
     L.marker([-21.280, 55.515], {icon: iconPlage})
       .addTo(map)
-      .bindPopup('<strong>Grande Anse</strong><br>Plage sauvage, cocotiers, cadre magnifique');
+      .bindPopup('<strong>Grande Anse</strong><br>Plage sauvage, cocotiers, cadre magnifique — baignade dangereuse');
     L.marker([-21.388, 55.622], {icon: iconPlage})
       .addTo(map)
-      .bindPopup('<strong>Plage de Vincendo</strong><br>Plage de sable noir, vagues puissantes, sauvage');
+      .bindPopup('<strong>Plage de Vincendo</strong><br>Plage de sable noir, vagues puissantes, sauvage — baignade dangereuse');
+
+    L.marker([-21.272, 55.366], {icon: iconBaignade})
+      .addTo(map)
+      .bindPopup('<strong>Plage de l\'Étang-Salé</strong><br>Sable noir, baignade surveillée en été');
+    L.marker([-21.342, 55.478], {icon: iconBaignade})
+      .addTo(map)
+      .bindPopup('<strong>Plage de Saint-Pierre</strong><br>Lagon protégé, baignade familiale');
+    L.marker([-21.163, 55.288], {icon: iconBaignade})
+      .addTo(map)
+      .bindPopup('<strong>Plage de Saint-Leu</strong><br>Lagon calme, baignade surveillée');
 
     L.marker([-21.244, 55.708], {icon: iconNature})
       .addTo(map)
