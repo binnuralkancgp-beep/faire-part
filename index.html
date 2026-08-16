@@ -601,16 +601,19 @@
       });
     }
     var iconMariage  = makeIcon('⚭', '#B07A45');
+    var iconMairie   = makeIcon('⚭', '#7A8B66');
     var iconNature   = makeIcon('▲', '#7A8B66');
     var iconPlage    = makeIcon('▬', '#8A7755');
     var iconVille    = makeIcon('■', '#4A3F2E');
     var iconVillage  = makeIcon('●', '#B8934E');
+    var iconCascade  = makeIcon('💧', '#4A7B8C');
+    var iconCap      = makeIcon('⛰️', '#B8934E');
 
     L.marker([-21.3487, 55.4992], {icon: iconMariage})
       .addTo(map)
       .bindPopup('<strong>Domaine du Bassin, B18</strong><br>52 Route N2, Terre Rouge<br>97410 Saint-Pierre<br>Fête · 19 juin 2027');
 
-    L.marker([-21.0097, 55.2697], {icon: iconVille})
+    L.marker([-21.0097, 55.2697], {icon: iconMairie})
       .addTo(map)
       .bindPopup('<strong>Mairie de Saint-Paul</strong><br>Place du Général de Gaulle<br>97460 Saint-Paul<br>Cérémonie · 18 juin 2027');
 
@@ -623,6 +626,9 @@
     L.marker([-21.280, 55.515], {icon: iconPlage})
       .addTo(map)
       .bindPopup('<strong>Grande Anse</strong><br>Plage sauvage, cocotiers, cadre magnifique');
+    L.marker([-21.388, 55.622], {icon: iconPlage})
+      .addTo(map)
+      .bindPopup('<strong>Plage de Vincendo</strong><br>Plage de sable noir, vagues puissantes, sauvage');
 
     L.marker([-21.244, 55.708], {icon: iconNature})
       .addTo(map)
@@ -639,6 +645,36 @@
     L.marker([-21.06, 55.42], {icon: iconNature})
       .addTo(map)
       .bindPopup('<strong>Cirque de Mafate</strong><br>Accessible à pied, villages isolés');
+
+    L.marker([-21.372, 55.708], {icon: iconCap})
+      .addTo(map)
+      .bindPopup('<strong>Cap Méchant</strong><br>Falaises basaltiques, océan sauvage');
+    L.marker([-21.312, 55.703], {icon: iconCap})
+      .addTo(map)
+      .bindPopup('<strong>Cap Jaune</strong><br>Falaise ocre, vue spectaculaire sur l\'océan');
+    L.marker([-21.164, 55.834], {icon: iconCascade})
+      .addTo(map)
+      .bindPopup('<strong>Anse des Cascades</strong><br>Anse sauvage, cascades et palmiers, sur la côte Est');
+
+    L.marker([-21.284, 55.663], {icon: iconCascade})
+      .addTo(map)
+      .bindPopup('<strong>Cascade de Grand Galet</strong><br>Cascade Langevin, bassin, baignade rafraîchissante');
+    L.marker([-20.992, 55.601], {icon: iconCascade})
+      .addTo(map)
+      .bindPopup('<strong>Cascade Niagara</strong><br>Impressionnante chute d\'eau, Sainte-Suzanne');
+    L.marker([-21.025, 55.620], {icon: iconCascade})
+      .addTo(map)
+      .bindPopup('<strong>Cascade Blanche</strong><br>Cascade de Takamaka, forêt tropicale, Salazie');
+    L.marker([-21.042, 55.489], {icon: iconCascade})
+      .addTo(map)
+      .bindPopup('<strong>Voile de la Mariée</strong><br>Cascade élégante, Salazie');
+
+    L.marker([-21.368, 55.605], {icon: iconCascade})
+      .addTo(map)
+      .bindPopup('<strong>Bassin de Manapany</strong><br>Bassin naturel, baignade, Saint-Joseph');
+    L.marker([-21.046, 55.243], {icon: iconCascade})
+      .addTo(map)
+      .bindPopup('<strong>Bassin des Cormorans</strong><br>Bassin d\'eau douce, L\'Éperon, Saint-Paul');
 
     L.marker([-20.879, 55.448], {icon: iconVille})
       .addTo(map)
