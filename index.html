@@ -505,45 +505,45 @@
 
   <div class="dates-grid">
     <div class="date-card card-frame">
-      <div class="icon">— Cérémonie civile —</div>
-      <div class="label">Mairie de Saint-Paul</div>
-      <div class="date">18 juin 2027</div>
-      <div class="location">Place du Général de Gaulle<br>97460 Saint-Paul, La Réunion<br><em>Heure communiquée plus tard</em><br><em>Pique-nique partagé — lieu communiqué plus tard</em></div>
+      <div class="icon" data-i18n="ceremonie-civile">— Cérémonie civile —</div>
+      <div class="label" data-i18n="mairie-label">Mairie de Saint-Paul</div>
+      <div class="date" data-i18n="date-civile">18 juin 2027</div>
+      <div class="location" data-i18n="lieu-civile">Place du Général de Gaulle<br>97460 Saint-Paul, La Réunion<br><em>Heure communiquée plus tard</em><br><em>Pique-nique partagé — lieu communiqué plus tard</em></div>
     </div>
     <div class="date-card card-frame">
-      <div class="icon">— Cérémonie laïque —</div>
+      <div class="icon" data-i18n="ceremonie-laique">— Cérémonie laïque —</div>
       <div class="label">Domaine du Bassin, B18</div>
-      <div class="date">19 juin 2027</div>
-      <div class="location">52 Route N2, Terre Rouge<br>97410 Saint-Pierre, La Réunion<br><em>Heure communiquée plus tard</em></div>
+      <div class="date" data-i18n="date-laique">19 juin 2027</div>
+      <div class="location" data-i18n="lieu-laique">52 Route N2, Terre Rouge<br>97410 Saint-Pierre, La Réunion<br><em>Heure communiquée plus tard</em></div>
     </div>
   </div>
 
   <!-- Dress code -->
   <div class="dress-code card-frame">
-    <h3>Dress code</h3>
+    <h3 data-i18n="dress-title">Dress code</h3>
     <div class="palette">
       <div>
         <div class="swatch" style="background:#E8C25A;"></div>
-        <div class="swatch-label">Jaune</div>
+        <div class="swatch-label" data-i18n="couleur-jaune">Jaune</div>
       </div>
       <div>
         <div class="swatch" style="background:#D98A5B;"></div>
-        <div class="swatch-label">Orange</div>
+        <div class="swatch-label" data-i18n="couleur-orange">Orange</div>
       </div>
       <div>
         <div class="swatch" style="background:#B07A45;"></div>
-        <div class="swatch-label">Terracotta</div>
+        <div class="swatch-label" data-i18n="couleur-terracotta">Terracotta</div>
       </div>
       <div>
         <div class="swatch" style="background:#7A8B66;"></div>
-        <div class="swatch-label">Vert kaki</div>
+        <div class="swatch-label" data-i18n="couleur-kaki">Vert kaki</div>
       </div>
       <div>
         <div class="swatch" style="background:#8A76A8;"></div>
-        <div class="swatch-label">Violet</div>
+        <div class="swatch-label" data-i18n="couleur-violet">Violet</div>
       </div>
     </div>
-    <p style="margin-top:1rem;color:#666;font-size:0.95rem;">Messieurs, pas de chemises à motifs</p>
+    <p data-i18n="dress-note" style="margin-top:1rem;color:#666;font-size:0.95rem;">Messieurs, pas de chemises à motifs</p>
   </div>
 </section>
 
@@ -564,68 +564,68 @@
 <section class="section rsvp-section">
   <div class="lemon-divider"></div>
   <h2 id="rsvp-title">Répondez-nous</h2>
-  <p class="subtitle">Merci de confirmer votre présence avant le <strong style="text-decoration:underline;text-transform:uppercase;font-style:normal;font-variant-numeric:lining-nums;">20 octobre 2026</strong></p>
+  <p class="subtitle" data-i18n="rsvp-subtitle">Merci de confirmer votre présence avant le <strong style="text-decoration:underline;text-transform:uppercase;font-style:normal;font-variant-numeric:lining-nums;">5 novembre 2026</strong></p>
   <p id="rsvp-intro" class="rsvp-intro"></p>
 
   <form class="rsvp-form card-frame" id="rsvp-form">
-    <label for="name">Votre nom</label>
-    <input type="text" id="name" name="name" placeholder="Prénom + Nom" required>
+    <label for="name" data-i18n="label-nom">Votre nom</label>
+    <input type="text" id="name" name="name" placeholder="Prénom + Nom" data-i18n-ph="placeholder-nom" required>
 
-    <label>Présence</label>
+    <label data-i18n="label-presence">Présence</label>
     <div class="radio-group">
-      <label><input type="radio" name="presence" value="Oui" required> Oui, je viens !</label>
-      <label><input type="radio" name="presence" value="Non"> Non, désolé(e)</label>
+      <label><input type="radio" name="presence" value="Oui" required> <span data-i18n="presence-oui">Oui, je viens !</span></label>
+      <label><input type="radio" name="presence" value="Non"> <span data-i18n="presence-non">Non, désolé(e)</span></label>
     </div>
 
-    <label>Quelles cérémonies souhaitez-vous partager avec nous ?</label>
+    <label data-i18n="label-ceremonies">Quelles cérémonies souhaitez-vous partager avec nous ?</label>
     <div class="radio-group">
-      <label><input type="checkbox" name="ceremonie" value="Civile"> Cérémonie civile — 18 juin</label>
-      <label><input type="checkbox" name="ceremonie" value="Laïque"> Cérémonie laïque — 19 juin</label>
+      <label><input type="checkbox" name="ceremonie" value="Civile"> <span data-i18n="ceremonie-civile-cb">Cérémonie civile — 18 juin</span></label>
+      <label><input type="checkbox" name="ceremonie" value="Laïque"> <span data-i18n="ceremonie-laique-cb">Cérémonie laïque — 19 juin</span></label>
     </div>
 
     <div id="bloc-accompagne" class="rsvp-bloc">
-      <label>Accompagné(e) ?</label>
+      <label data-i18n="label-accompagne">Accompagné(e) ?</label>
       <div class="radio-group">
-        <label><input type="radio" name="accompagne" value="Seul(e)"> Seul(e)</label>
-        <label><input type="radio" name="accompagne" value="En couple"> En couple</label>
+        <label><input type="radio" name="accompagne" value="Seul(e)"> <span data-i18n="accompagne-seul">Seul(e)</span></label>
+        <label><input type="radio" name="accompagne" value="En couple"> <span data-i18n="accompagne-couple">En couple</span></label>
       </div>
 
-      <label for="conjoint">Nom du conjoint / accompagnant</label>
-      <input type="text" id="conjoint" name="conjoint" placeholder="Laissez vide si seul(e)">
+      <label for="conjoint" data-i18n="label-conjoint">Nom du conjoint / accompagnant</label>
+      <input type="text" id="conjoint" name="conjoint" placeholder="Laissez vide si seul(e)" data-i18n-ph="placeholder-conjoint">
     </div>
 
     <div id="bloc-enfants-choix" class="rsvp-bloc">
-      <label>Vos enfants sont-ils présents ?</label>
+      <label data-i18n="label-enfants">Vos enfants sont-ils présents ?</label>
       <div class="radio-group">
-        <label><input type="radio" name="enfants" value="Oui"> Oui, ils viennent</label>
-        <label><input type="radio" name="enfants" value="Non"> Non, ils ne viennent pas</label>
+        <label><input type="radio" name="enfants" value="Oui"> <span data-i18n="enfants-oui">Oui, ils viennent</span></label>
+        <label><input type="radio" name="enfants" value="Non"> <span data-i18n="enfants-non">Non, ils ne viennent pas</span></label>
       </div>
-      <label for="ages-enfants-choix">Âges des enfants</label>
-      <input type="text" id="ages-enfants-choix" name="ages-enfants-choix" placeholder="Ex : 4, 7 et 10 ans">
-      <label for="noms-enfants">Prénoms des enfants</label>
-      <input type="text" id="noms-enfants" name="noms-enfants" placeholder="Ex : Léa, Noah et Mila">
+      <label for="ages-enfants-choix" data-i18n="label-ages">Âges des enfants</label>
+      <input type="text" id="ages-enfants-choix" name="ages-enfants-choix" placeholder="Ex : 4, 7 et 10 ans" data-i18n-ph="placeholder-ages">
+      <label for="noms-enfants" data-i18n="label-noms-enfants">Prénoms des enfants</label>
+      <input type="text" id="noms-enfants" name="noms-enfants" placeholder="Ex : Léa, Noah et Mila" data-i18n-ph="placeholder-noms">
     </div>
 
-    <button type="submit">Envoyer ma réponse</button>
+    <button type="submit" data-i18n="btn-envoyer">Envoyer ma réponse</button>
   </form>
 
   <div id="rsvp-merci" style="display:none;">
-    <h2 style="font-family:'Dancing Script',cursive;font-size:2.5rem;color:#7A8B66;margin-bottom:0.8rem;">Merci !</h2>
-    <p id="rsvp-merci-texte" style="color:#7A6E5A;font-style:italic;font-size:1.1rem;">Merci d'avoir pris le temps de répondre. ☀️🦗</p>
+    <h2 data-i18n="merci-titre" style="font-family:'Dancing Script',cursive;font-size:2.5rem;color:#7A8B66;margin-bottom:0.8rem;">Merci !</h2>
+    <p id="rsvp-merci-texte" data-i18n="merci-texte" style="color:#7A6E5A;font-style:italic;font-size:1.1rem;">Merci d'avoir pris le temps de répondre. ☀️🦗</p>
   </div>
 </section>
 
 <!-- ═══════ INFOS PRATIQUES ═══════ -->
 <section class="section" style="padding-top:0;padding-bottom:0;">
   <div class="lemon-divider"></div>
-  <h2 style="text-align:center;font-family:'Dancing Script',cursive;font-size:2.5rem;color:#3E3423;margin-bottom:2rem;">Vous ne connaissez pas encore l'île ?</h2>
+  <h2 data-i18n="ile-titre" style="text-align:center;font-family:'Dancing Script',cursive;font-size:2.5rem;color:#3E3423;margin-bottom:2rem;">Vous ne connaissez pas encore l'île ?</h2>
 
   <div class="dates-grid" style="grid-template-columns:1fr;max-width:560px;margin:2rem auto;">
     <div class="date-card card-frame">
-      <div class="icon">— L'île en juin —</div>
-      <div class="label">Bon à savoir</div>
-      <div class="date" style="font-size:1.4rem;">Climat, saison et arrivée</div>
-      <div class="location">
+      <div class="icon" data-i18n="ile-icon">— L'île en juin —</div>
+      <div class="label" data-i18n="ile-label">Bon à savoir</div>
+      <div class="date" data-i18n="ile-date" style="font-size:1.4rem;">Climat, saison et arrivée</div>
+      <div class="location" data-i18n="ile-body">
         En juin, c'est l'hiver austral : saison fraîche et sèche, environ 22-25°C le jour et 16-18°C la nuit.<br><br>
         <strong>Aéroport Roland Garros</strong> (Saint-Denis, RUN) : principale porte d'entrée de l'île.<br><br>
         Les billets d'avion sont normalement plus bas en juin. Si vous comptez rester longtemps, réservez tôt : les prix risquent d'augmenter dès le début des vacances scolaires.<br><br>
@@ -636,8 +636,8 @@
 
   <!-- Carte des lieux à visiter -->
   <div style="margin-top:2.5rem;">
-    <h3 style="text-align:center;font-family:'Dancing Script',cursive;font-size:2rem;color:#3E3423;margin-bottom:0.8rem;">Lieux à visiter</h3>
-    <p style="text-align:center;color:#7A6E5A;font-style:italic;margin-bottom:1.5rem;font-size:0.95rem;">Profitez de votre séjour pour découvrir l'île intense</p>
+    <h3 data-i18n="lieux-titre" style="text-align:center;font-family:'Dancing Script',cursive;font-size:2rem;color:#3E3423;margin-bottom:0.8rem;">Lieux à visiter</h3>
+    <p data-i18n="lieux-subtitle" style="text-align:center;color:#7A6E5A;font-style:italic;margin-bottom:1.5rem;font-size:0.95rem;">Profitez de votre séjour pour découvrir l'île intense</p>
     <div id="map" style="width:100%;height:350px;border-radius:20px;box-shadow:0 4px 20px rgba(62,52,35,0.12);border:1px solid rgba(138,119,85,0.22);"></div>
   </div>
 </section>
@@ -645,7 +645,7 @@
 <!-- ═══════ FOOTER ═══════ -->
 <footer class="footer">
   <div class="hearts">—</div>
-  Binnur & Jordan · Juin 2027
+  <span data-i18n="footer">Binnur & Jordan · Juin 2027</span>
 </footer>
 
 <script>
@@ -997,6 +997,71 @@ var FOYERS = {
     if (annonce) annonce.innerHTML = 'Evliliğimizi size duyurmaktan büyük mutluluk duyuyoruz.<br class="br-desktop">O gün, yolumuza yeni bir taş koyacağız,<br class="br-desktop">ve buna tanık olmanızı çok isteriz.';
     if (hate) hate.textContent = 'Bu anı sizinle paylaşmak için sabırsızlanıyoruz.';
     if (titre) titre.textContent = 'Cevabınızı bekliyoruz';
+
+    var I18N = {
+      'ceremonie-civile': '— Resmî nikah —',
+      'mairie-label': 'Saint-Paul Belediyesi',
+      'date-civile': '18 Haziran 2027',
+      'ceremonie-laique': '— Düğün töreni —',
+      'date-laique': '19 Haziran 2027',
+      'dress-title': 'Kıyafet kodu',
+      'couleur-jaune': 'Sarı',
+      'couleur-orange': 'Turuncu',
+      'couleur-terracotta': 'Terakota',
+      'couleur-kaki': 'Haki yeşili',
+      'couleur-violet': 'Mor',
+      'dress-note': 'Beyler, desenli gömlek giymeyiniz lütfen',
+      'label-nom': 'Adınız',
+      'label-presence': 'Katılım',
+      'presence-oui': 'Evet, geliyorum!',
+      'presence-non': 'Hayır, üzgünüm',
+      'label-ceremonies': 'Hangi törenlere katılmak istersiniz?',
+      'ceremonie-civile-cb': 'Resmî nikah — 18 Haziran',
+      'ceremonie-laique-cb': 'Düğün töreni — 19 Haziran',
+      'label-accompagne': 'Yanınızda refakatçi var mı?',
+      'accompagne-seul': 'Yalnız',
+      'accompagne-couple': 'Çift olarak',
+      'label-conjoint': 'Eşinizin / refakatçinizin adı',
+      'label-enfants': 'Çocuklarınız gelecek mi?',
+      'enfants-oui': 'Evet, geliyorlar',
+      'enfants-non': 'Hayır, gelmiyorlar',
+      'label-ages': 'Çocukların yaşları',
+      'label-noms-enfants': 'Çocukların adları',
+      'btn-envoyer': 'Cevabımı gönder',
+      'merci-titre': 'Teşekkürler!',
+      'merci-texte': 'Cevap verdiğiniz için teşekkür ederiz.',
+      'ile-titre': 'Adayı henüz tanımıyor musunuz?',
+      'ile-icon': '— Haziran\'da ada —',
+      'ile-label': 'Bilmenizde fayda var',
+      'ile-date': 'İklim, mevsim ve varış',
+      'lieux-titre': 'Gezilecek yerler',
+      'lieux-subtitle': 'Konaklamanız sırasında yoğun adayı keşfedin',
+      'footer': 'Binnur & Jordan · Haziran 2027',
+    };
+
+    var I18N_HTML = {
+      'rsvp-subtitle': 'Katılımınızı <strong style="text-decoration:underline;text-transform:uppercase;font-style:normal;font-variant-numeric:lining-nums;">5 Kasım 2026</strong> tarihine kadar bildirmenizi rica ediyoruz',
+      'lieu-civile': 'Place du Général de Gaulle<br>97460 Saint-Paul, La Réunion<br><em>Saat daha sonra bildirilecek</em><br><em>Ortak piknik — yer daha sonra bildirilecek</em>',
+      'lieu-laique': '52 Route N2, Terre Rouge<br>97410 Saint-Pierre, La Réunion<br><em>Saat daha sonra bildirilecek</em>',
+      'ile-body': 'Haziran ayında adada güney yarımküre kışı yaşanır: serin ve kurak mevsim, gündüz yaklaşık 22-25°C, gece 16-18°C.<br><br><strong>Roland Garros Havalimanı</strong> (Saint-Denis, RUN): adanın ana giriş kapısı.<br><br>Uçak biletleri Haziran ayında normalde daha ucuzdur. Uzun süre kalmayı planlıyorsanız erken rezervasyon yapın: okul tatillerinin başlamasıyla fiyatlar artabilir.<br><br><em>Düğün töreni akşamı için yanınıza ince bir kazak alın, güneş battıktan sonra hava serin olabilir.</em>',
+    };
+
+    var I18N_PH = {
+      'placeholder-nom': 'Ad + Soyad',
+      'placeholder-conjoint': 'Yalnızsanız boş bırakın',
+      'placeholder-ages': 'Örn: 4, 7 ve 10 yaş',
+      'placeholder-noms': 'Örn: Léa, Noah ve Mila',
+    };
+
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n');
+      if (I18N_HTML[k]) el.innerHTML = I18N_HTML[k];
+      else if (I18N[k]) el.textContent = I18N[k];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n-ph');
+      if (I18N_PH[k]) el.placeholder = I18N_PH[k];
+    });
   }
 
   var form = document.getElementById('rsvp-form');
@@ -1009,7 +1074,7 @@ var FOYERS = {
     form.style.display = 'none';
     var t = document.getElementById('rsvp-merci-texte');
     if (t) {
-      t.textContent = 'Merci d\'avoir pris le temps de répondre. ☀️🦗';
+      t.textContent = (currentLang === 'tr') ? 'Cevap verdiğiniz için teşekkür ederiz.' : 'Merci d\'avoir pris le temps de répondre. ☀️🦗';
     }
     document.getElementById('rsvp-merci').style.display = 'block';
   }
@@ -1072,7 +1137,7 @@ var FOYERS = {
           throw new Error(data && data.error ? data.error : 'Erreur serveur');
         }
       } catch (err) {
-        btn.textContent = 'Envoyer ma réponse';
+        btn.textContent = (currentLang === 'tr') ? 'Cevabımı gönder' : 'Envoyer ma réponse';
         btn.disabled = false;
         alert('Oups ! Une erreur est survenue : ' + err.message);
       }
