@@ -488,12 +488,12 @@
     <span class="amp">&amp;</span>
     <span>Jordan</span>
   </h1>
-  <p style="font-size:1.15rem;color:#5A4E3A;margin-top:0.8rem;line-height:1.7;font-style:italic;">
+  <p id="hero-annonce" style="font-size:1.15rem;color:#5A4E3A;margin-top:0.8rem;line-height:1.7;font-style:italic;">
     Nous avons la joie de vous annoncer notre mariage.<br class="br-desktop">
     Ce jour-là, nous poserons une nouvelle pierre sur notre chemin,<br class="br-desktop">
     et nous aimerions que vous en soyez les témoins.
   </p>
-  <p style="font-size:1.1rem;color:#6E6250;margin-top:1.6rem;font-style:italic;">
+  <p id="hero-hate" style="font-size:1.1rem;color:#6E6250;margin-top:1.6rem;font-style:italic;">
     Nous avons hâte de partager ce moment avec vous.
   </p>
   </div>
@@ -659,7 +659,7 @@
 
   // Table des foyers : hash du code → { nom, version }
 var FOYERS = {
-    'c5f85807880a283f2e8a7e214235b54b49fff337f56ad2aebf01af3a4692ba1e': { nom: 'Maman', version: 's' },
+    'c5f85807880a283f2e8a7e214235b54b49fff337f56ad2aebf01af3a4692ba1e': { nom: 'Anne', version: 's' },
     'a6912c5e3737cd9a4b1a9b0abfc48c6f2ad977fa5eb8e9a5a015d3567eeb0a80': { nom: 'Melek', version: 'p1e' },
     '28abdc5f0496b3dfda75d770e6b953606a982d6d3ee3e97c0c5ddda47fa689a4': { nom: 'Zeliha', version: 'p1e' },
     '0000d3235efce93b536b59487ebf5f4246747d98ec8092666898a62c8be9d65d': { nom: 'Ceyda', version: 'p1' },
@@ -678,7 +678,7 @@ var FOYERS = {
     '8e1ac224f40c9bc2ddb7773bbd5aba9790390d4627774b26723fe3b90c6f6d24': { nom: 'Maryline', version: 'p1' },
     '76d399c925c4eddf1af0cadb818d7273a2e20079f7079bbb371391c92fb63c65': { nom: 'Sasha', version: 'p1e' },
     '14868d42709704b7ea30c97f8239f3c2dee93aa816ab12c2b42d1b40aba4f802': { nom: 'Marie', version: 's' },
-    'e1bf0a496b9a3ccc1df49ab864ec4940a487f4a5079ad0f0b31ff6b889eadc62': { nom: 'Ahmet dayi', version: 'p1' },
+    'e1bf0a496b9a3ccc1df49ab864ec4940a487f4a5079ad0f0b31ff6b889eadc62': { nom: 'Ahmet dayi', version: 'p1', lang: 'tr' },
     'f9654cfed8c0ddb72c241ee9c3ff6086202bfec17556df409e59ac2577ae4bce': { nom: 'Samia', version: 's' },
     'c1f20a7f46f9e20835cc595b7c5e26ca50631786356cf763b3f682b0272a93fb': { nom: 'Lou', version: 'p1' },
     '84cd9981f53a923eedffc587c5c43da6cbba347c3afc5c4e92a3fb03a38426aa': { nom: 'Sarah Alouarghy', version: 's' },
@@ -740,6 +740,7 @@ var FOYERS = {
   var currentFoyer   = '';
   var currentVersion = urlV || 'p1';
   var currentCode    = '';
+  var currentLang    = 'fr';
 
   var overlay = document.getElementById('password-overlay');
   var input = document.getElementById('password-input');
@@ -755,6 +756,7 @@ var FOYERS = {
     overlay.style.display = 'none';
     document.body.style.overflow = 'auto';
     configurerVersion(currentVersion);
+    appliquerLangue();
     // Si un vrai foyer est identifié, on vérifie tout de suite s'il a déjà répondu
     if (currentFoyer) {
       verifierDejaRepondu();
@@ -792,6 +794,7 @@ var FOYERS = {
       } else if (FOYERS[hash]) {
         currentVersion = FOYERS[hash].version;
         currentFoyer = FOYERS[hash].nom;
+        currentLang = FOYERS[hash].lang || 'fr';
         currentCode = val;
         unlock();
       } else {
@@ -956,18 +959,24 @@ var FOYERS = {
       blocEnfantsChoix.style.display = 'none';
     }
 
+    var TR_INTROS = {
+      s: 'Düğünümüze davetlisiniz.',
+      p1e: 'Düğünümüze davetlisiniz.',
+      p1: 'Düğünümüze davetlisiniz. Kutlamayı huzur içinde geçirebilmemiz için çocuklarınız olmadan gelmenizi rica ediyoruz.',
+    };
+
     if (v === 's') {
-      intro.textContent = 'Vous êtes convié(e) à notre mariage.';
+      intro.textContent = (currentLang === 'tr' && TR_INTROS.s) || 'Vous êtes convié(e) à notre mariage.';
       reset();
     } else if (v === 'p1e') {
       // +1 avec question enfants au choix
-      intro.textContent = 'Vous êtes convié(e) à notre mariage.';
+      intro.textContent = (currentLang === 'tr' && TR_INTROS.p1e) || 'Vous êtes convié(e) à notre mariage.';
       reset();
       blocAccompagne.style.display = 'block';
       blocEnfantsChoix.style.display = 'block';
     } else {
       // p1 (défaut) : accompagné, sans enfants
-      intro.textContent = 'Vous êtes convié(e) à notre mariage. Nous vous invitons à venir sans vos enfants pour profiter de la fête en toute sérénité.';
+      intro.textContent = (currentLang === 'tr' && TR_INTROS.p1) || 'Vous êtes convié(e) à notre mariage. Nous vous invitons à venir sans vos enfants pour profiter de la fête en toute sérénité.';
       reset();
       blocAccompagne.style.display = 'block';
     }
@@ -977,6 +986,17 @@ var FOYERS = {
     if (currentFoyer && nameField) {
       nameField.value = currentFoyer;
     }
+  }
+
+  // Traduction des textes fixes (hero + titre) selon currentLang
+  function appliquerLangue() {
+    if (currentLang !== 'tr') return;
+    var annonce = document.getElementById('hero-annonce');
+    var hate = document.getElementById('hero-hate');
+    var titre = document.getElementById('rsvp-title');
+    if (annonce) annonce.innerHTML = 'Evliliğimizi size duyurmaktan büyük mutluluk duyuyoruz.<br class="br-desktop">O gün, yolumuza yeni bir taş koyacağız,<br class="br-desktop">ve buna tanık olmanızı çok isteriz.';
+    if (hate) hate.textContent = 'Bu anı sizinle paylaşmak için sabırsızlanıyoruz.';
+    if (titre) titre.textContent = 'Cevabınızı bekliyoruz';
   }
 
   var form = document.getElementById('rsvp-form');
